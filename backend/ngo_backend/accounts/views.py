@@ -41,3 +41,9 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect("/login/")
+
+from django.contrib.auth.decorators import login_required
+
+@login_required(login_url="/login/")
+def dashboard(request):
+    return render(request, "dashboard.html")
