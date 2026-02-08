@@ -1,0 +1,16 @@
+<h2>Donations</h2>
+
+{% for donation in donations %}
+    <h3>{{ donation.donor_name }}</h3>
+    <p>Amount: ₹ {{ donation.amount }}</p>
+    <p>{{ donation.date }}</p>
+    <p>{{ donation.message }}</p>
+    <hr>
+{% endfor %}
+<a href="/dashboard/">⬅ Back to Dashboard</a>
+<br><br>
+<a href="/dashboard/">Dashboard</a> |
+<a href="/events/">Events</a> |
+<a href="/logout/">Logout</a>
+
+<br><br>
