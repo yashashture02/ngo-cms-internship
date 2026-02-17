@@ -1,3 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Donations</h2>
+
+{% for donation in donations %}
+    <h3>{{ donation.donor_name }}</h3>
+    <p>₹ {{ donation.amount }}</p>
+    <p>{{ donation.date }}</p>
+    <hr>
+{% endfor %}
+
+{% endblock %}
+
 <h2>Donations</h2>
 
 {% for donation in donations %}
@@ -14,3 +28,4 @@
 <a href="/logout/">Logout</a>
 
 <br><br>
+

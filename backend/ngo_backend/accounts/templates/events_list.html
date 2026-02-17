@@ -1,3 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>NGO Events</h2>
+
+{% for event in events %}
+    <h3>{{ event.title }}</h3>
+    <p>{{ event.description }}</p>
+    <p>{{ event.event_date }} - {{ event.location }}</p>
+    <hr>
+{% endfor %}
+
+{% endblock %}
+
 <h2>NGO Events</h2>
 
 {% for event in events %}

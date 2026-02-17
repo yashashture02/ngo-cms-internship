@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NGO Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background: #f4f6f8;
+        }
+
+        .menu {
+            background: #2c3e50;
+            padding: 12px;
+            border-radius: 6px;
+        }
+
+        .menu a {
+            color: white;
+            margin-right: 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .menu a:hover {
+            text-decoration: underline;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+
+<body>
+
+{% if request.user.is_authenticated %}
+<div class="menu">
+    <a href="/dashboard/">Dashboard</a>
+    <a href="/events/">Events</a>
+    <a href="/donations/">Donations</a>
+    <a href="/logout/">Logout</a>
+</div>
+{% endif %}
+
+
+<div class="card">
+    {% block content %}
+    {% endblock %}
+</div>
+
+</body>
+</html>
