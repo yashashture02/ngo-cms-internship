@@ -3,15 +3,16 @@
 {% block content %}
 <h2>Admin Dashboard</h2>
 <p>Welcome {{ request.user.username }}</p>
-{% endblock %}
 
-<h2>Admin Dashboard</h2>
-<p>Welcome Admin: {{ request.user.username }}</p>
-<a href="/logout/">Logout</a>
-<br><br>
-<a href="/events/">View Events</a>
-<br><br>
-<a href="/events/">Events</a> |
-<a href="/donations/">Donations</a>
-<br><br>
+<hr>
+
+<h3>Statistics</h3>
+
+<p><strong>Total Events:</strong> {{ total_events }}</p>
+<p><strong>Total Donations:</strong> {{ total_donations }}</p>
+<p><strong>Total Donation Amount:</strong> ₹ {{ total_amount }}</p>
+
+<br>
 <a href="/create-event/">Create Event</a>
+
+{% endblock %}

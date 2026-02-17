@@ -30,3 +30,26 @@ def create_event(request):
         form = EventForm()
 
     return render(request, "create_event.html", {"form": form})
+from events.models import Event, Donation
+from django.db.models import Sum # type: ignore
+
+@login_required(login_url="/login/")
+def dashboard(request):
+    profile = request.user.profile
+
+    total_events = Event.objects.count()
+    total_donations = Donation.objects.count()
+    total_amount = Donation.objects.aggregate(Sum('amount'))['amount__sum'] or 0
+
+    context = {
+        "total_events": total_events,
+        "total_donations": total_donations,
+        "total_amount": total_amount,
+    }
+
+    if profile.role == "admin":
+        return render(request, "dashboard_admin.html", context)
+    elif profile.role == "staff":
+        return render(request, "dashboard_staff.html", context)
+    else:
+        return render(request, "dashboard_user.html", context)
