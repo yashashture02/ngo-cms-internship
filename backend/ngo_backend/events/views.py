@@ -30,26 +30,31 @@ def create_event(request):
         form = EventForm()
 
     return render(request, "create_event.html", {"form": form})
-from events.models import Event, Donation
-from django.db.models import Sum # type: ignore
+
 
 @login_required(login_url="/login/")
-def dashboard(request):
-    profile = request.user.profile
+def edit_event(request, id):
+    if request.user.profile.role not in ["admin", "staff"]:
+        return redirect("/dashboard/")
 
-    total_events = Event.objects.count()
-    total_donations = Donation.objects.count()
-    total_amount = Donation.objects.aggregate(Sum('amount'))['amount__sum'] or 0
+    event = Event.objects.get(id=id)
 
-    context = {
-        "total_events": total_events,
-        "total_donations": total_donations,
-        "total_amount": total_amount,
-    }
-
-    if profile.role == "admin":
-        return render(request, "dashboard_admin.html", context)
-    elif profile.role == "staff":
-        return render(request, "dashboard_staff.html", context)
+    if request.method == "POST":
+        form = EventForm(request.POST, instance=event)
+        if form.is_valid():
+            form.save()
+            return redirect("/events/")
     else:
-        return render(request, "dashboard_user.html", context)
+        form = EventForm(instance=event)
+
+    return render(request, "edit_event.html", {"form": form})
+
+
+@login_required(login_url="/login/")
+def delete_event(request, id):
+    if request.user.profile.role not in ["admin", "staff"]:
+        return redirect("/dashboard/")
+
+    event = Event.objects.get(id=id)
+    event.delete()
+    return redirect("/events/")

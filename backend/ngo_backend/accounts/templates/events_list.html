@@ -4,13 +4,18 @@
 <h2>NGO Events</h2>
 
 {% for event in events %}
-    <h3>{{ event.title }}</h3>
-    <p>{{ event.description }}</p>
-    <p>{{ event.event_date }} - {{ event.location }}</p>
-    <hr>
+    <div style="border-bottom:1px solid #ccc; padding:10px;">
+        <h3>{{ event.title }}</h3>
+        <p>{{ event.description }}</p>
+        <p>{{ event.event_date }} - {{ event.location }}</p>
+
+        <a href="/edit-event/{{ event.id }}/">✏️ Edit</a> |
+        <a href="/delete-event/{{ event.id }}/" style="color:red;">🗑️ Delete</a>
+    </div>
 {% endfor %}
 
 {% endblock %}
+
 
 <h2>NGO Events</h2>
 
