@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required # type: ignore
 from django.shortcuts import render, redirect # type: ignore
 from .models import Event, Donation
-from .forms import EventForm
+from .forms import EventForm, DonationForm
 
 
 @login_required(login_url="/login/")
@@ -58,3 +58,14 @@ def delete_event(request, id):
     event = Event.objects.get(id=id)
     event.delete()
     return redirect("/events/")
+
+def donate(request):
+    if request.method == "POST":
+        form = DonationForm(request.POST) # type: ignore
+        if form.is_valid():
+            form.save()
+            return redirect("/donations/")
+    else:
+        form = DonationForm() # type: ignore
+
+    return render(request, "donate.html", {"form": form})
