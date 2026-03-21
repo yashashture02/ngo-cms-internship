@@ -1,18 +1,11 @@
-<h2>User Dashboard</h2>
-<p>Welcome User: {{ request.user.username }}</p>
-<a href="/logout/">Logout</a>
 {% extends "base.html" %}
 
 {% block content %}
+
 <h2>User Dashboard</h2>
-<p>Welcome {{ request.user.username }}</p>
 
-<hr>
+<p>Welcome to NGO CMS</p>
 
-<h3>Available Events</h3>
-
-<a href="/events/">View Events</a>
-<br><br>
-<a href="/donate/">Make Donation</a>
+<a href="/events/" class="btn">View Events</a>
 
 {% endblock %}

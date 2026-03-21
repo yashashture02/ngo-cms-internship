@@ -1,19 +1,11 @@
-<h2>Staff Dashboard</h2>
-<p>Welcome Staff: {{ request.user.username }}</p>
-<a href="/logout/">Logout</a>
 {% extends "base.html" %}
 
 {% block content %}
+
 <h2>Staff Dashboard</h2>
-<p>Welcome {{ request.user.username }}</p>
 
-<hr>
+<p>You can manage events</p>
 
-<h3>Quick Info</h3>
-<p>Total Events: {{ total_events }}</p>
-<p>Total Donations: {{ total_donations }}</p>
-
-<br>
-<a href="/create-event/">Create Event</a>
+<a href="/events/" class="btn">View Events</a>
 
 {% endblock %}
