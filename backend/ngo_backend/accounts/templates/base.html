@@ -6,92 +6,148 @@
     <style>
         body {
             margin: 0;
-            font-family: Arial;
-            background: linear-gradient(to right, #e3f2fd, #ffffff);
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #e0e7ff, #f8fafc);
         }
 
+        /* 🔥 NAVBAR (PRO LEVEL) */
         .navbar {
-            background-color: #333;
-            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(90deg, #0f172a, #1e293b);
+            padding: 14px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        .navbar a {
-            color: white;
-            margin-right: 15px;
-            text-decoration: none;
+        /* LOGO */
+        .logo {
+            color: #38bdf8;
+            font-size: 20px;
             font-weight: bold;
         }
 
-        .navbar a:hover {
-            color: yellow;
+        /* NAV LINKS */
+        .nav-links a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
         }
 
+        /* UNDERLINE HOVER EFFECT 🔥 */
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            background: #38bdf8;
+            left: 0;
+            bottom: -5px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* LOGOUT */
+        .nav-right a {
+            color: #f87171;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-right a:hover {
+            color: #ef4444;
+        }
+
+        /* CONTAINER */
         .container {
             max-width: 900px;
             margin: auto;
-            padding: 20px;
+            padding: 30px;
         }
 
+        /* CARD */
         .card {
             background: white;
-            padding: 20px;
-            margin: 20px 0;
+            padding: 25px;
+            margin: 25px 0;
             border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: 0.3s;
         }
 
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-6px);
         }
 
+        /* TEXT */
         h2 {
             text-align: center;
-            color: #333;
+            color: #1e293b;
         }
 
         h3 {
-            color: #333;
+            color: #0f172a;
         }
 
         p {
-            color: #555;
-            margin: 5px 0;
+            color: #475569;
         }
 
+        /* BUTTONS */
         .btn {
-            background:#007BFF;
-            color:white;
-            padding:10px 15px;
-            border-radius:8px;
-            text-decoration:none;
-            font-weight:bold;
+            background: #3b82f6;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            text-decoration: none;
         }
 
         .edit-btn {
-            background:#28a745;
-            color:white;
-            padding:6px 10px;
-            border-radius:6px;
-            text-decoration:none;
+            background: #22c55e;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-decoration: none;
         }
 
         .delete-btn {
-            background:#dc3545;
-            color:white;
-            padding:6px 10px;
-            border-radius:6px;
-            text-decoration:none;
+            background: #ef4444;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        .edit-btn, .delete-btn {
+            margin-right: 8px;
         }
     </style>
 </head>
 
 <body>
 
+<!-- 🔥 NAVBAR -->
 <div class="navbar">
-    <a href="/dashboard/">Dashboard</a>
-    <a href="/events/">Events</a>
-    <a href="/logout/">Logout</a>
+
+    <div class="logo">🌱 NGO CMS</div>
+
+    <div class="nav-links">
+        <a href="/dashboard/">Dashboard</a>
+        <a href="/events/">Events</a>
+        <a href="/events/add/">Add Event</a>
+    </div>
+
+    <div class="nav-right">
+        <a href="/logout/">Logout</a>
+    </div>
+
 </div>
 
 <div class="container">
