@@ -43,6 +43,24 @@ def edit_event(request, id):
 
     return render(request, 'events/edit_event.html', {'event': event})
 
+from django.shortcuts import render, redirect # type: ignore
+from .models import Donation
+
+def donate(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        amount = request.POST.get("amount")
+        message = request.POST.get("message")
+
+        Donation.objects.create(
+            name=name,
+            amount=amount,
+            message=message
+        )
+
+        return redirect('/events/')
+
+    return render(request, 'events/donate.html')
 
 # 📌 DELETE EVENT
 def delete_event(request, id):

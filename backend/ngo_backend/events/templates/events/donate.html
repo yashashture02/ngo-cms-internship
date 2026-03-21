@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>💖 Support Our NGO</h2>
+
+<div class="card">
+
+<form method="POST">
+    {% csrf_token %}
+
+    <input type="text" name="name" placeholder="Your Name"><br><br>
+    <input type="number" name="amount" placeholder="Donation Amount"><br><br>
+    <textarea name="message" placeholder="Message (optional)"></textarea><br><br>
+
+    <button type="submit" class="btn">Donate Now</button>
+</form>
+
+</div>
+
+{% endblock %}
