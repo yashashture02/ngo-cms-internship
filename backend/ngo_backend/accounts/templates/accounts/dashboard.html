@@ -1,8 +1,11 @@
 {% extends "base.html" %}
-
 {% block content %}
 
 <h2>📊 NGO Dashboard</h2>
+
+<p style="text-align:center; color:#cbd5f5;">
+    Making the world better through small contributions 💖
+</p>
 
 <div class="card">
     <h3>Total Events</h3>
@@ -18,9 +21,5 @@
     <h3>Total Amount</h3>
     <p>₹ {{ total_amount }}</p>
 </div>
-
-<br>
-
-<a href="/events/add/" class="btn">+ Create Event</a>
 
 {% endblock %}
