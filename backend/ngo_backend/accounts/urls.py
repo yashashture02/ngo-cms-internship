@@ -2,7 +2,7 @@ from django.urls import path # type: ignore
 from . import views
 
 urlpatterns = [
-    path('login/', views.login_view, name='login'),
-    path('dashboard/', views.dashboard, name='dashboard'),
-    path('logout/', views.logout_view, name='logout'),
+    path('login/', views.login_view),
+    path('dashboard/', views.dashboard),
+    path('logout/', views.logout_view),
 ]

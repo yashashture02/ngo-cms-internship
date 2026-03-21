@@ -1,0 +1,26 @@
+{% for event in events %}
+<div class="card">
+    
+    <h3>{{ event.title }}</h3>
+    <p>{{ event.description }}</p>
+    <p><b>Date:</b> {{ event.event_date }}</p>
+    <p><b>Location:</b> {{ event.location }}</p>
+
+    <div class="actions">
+        <a href="/events/add/" style="
+    background:#007BFF;
+    color:white;
+    padding:10px 15px;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:bold;
+">
+    + Add Event
+</a>
+<br><br>
+        <a href="/events/edit-event/{{ event.id }}">✏️ Edit</a>
+        <a href="/events/delete-event/{{ event.id }}">🗑️ Delete</a>
+    </div>
+
+</div>
+{% endfor %}

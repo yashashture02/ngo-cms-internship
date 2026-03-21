@@ -3,6 +3,7 @@ from django.urls import path, include # type: ignore
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('accounts.urls')),
-    path('', include('events.urls')),
+
+    path('', include('accounts.urls')),        # login, logout
+    path('events/', include('events.urls')),   # ✅ FIXED (VERY IMPORTANT)
 ]

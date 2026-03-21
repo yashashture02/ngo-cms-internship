@@ -1,71 +1,66 @@
-from django.contrib.auth.decorators import login_required # type: ignore
 from django.shortcuts import render, redirect # type: ignore
-from .models import Event, Donation
-from .forms import EventForm, DonationForm
+from .models import Event
 
 
-@login_required(login_url="/login/")
+# 📌 SHOW ALL EVENTS
 def event_list(request):
     events = Event.objects.all()
-    return render(request, "events_list.html", {"events": events})
+    return render(request, 'events/event_list.html', {'events': events})
 
 
-@login_required(login_url="/login/")
-def donation_list(request):
-    donations = Donation.objects.all()
-    return render(request, "donations_list.html", {"donations": donations})
+# 📌 ADD EVENT
+def add_event(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        event_date = request.POST.get('event_date')
+        location = request.POST.get('location')
+
+        Event.objects.create(
+            title=title,
+            description=description,
+            event_date=event_date,
+            location=location
+        )
+
+        return redirect('/events/')
+
+    return render(request, 'events/add_event.html')
 
 
-@login_required(login_url="/login/")
-def create_event(request):
-    if request.user.profile.role not in ["admin", "staff"]:
-        return redirect("/dashboard/")
-
-    if request.method == "POST":
-        form = EventForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("/events/")
-    else:
-        form = EventForm()
-
-    return render(request, "create_event.html", {"form": form})
-
-
-@login_required(login_url="/login/")
+# 📌 EDIT EVENT
 def edit_event(request, id):
-    if request.user.profile.role not in ["admin", "staff"]:
-        return redirect("/dashboard/")
-
     event = Event.objects.get(id=id)
 
-    if request.method == "POST":
-        form = EventForm(request.POST, instance=event)
-        if form.is_valid():
-            form.save()
-            return redirect("/events/")
-    else:
-        form = EventForm(instance=event)
+    if request.method == 'POST':
+        event.title = request.POST.get('title')
+        event.description = request.POST.get('description')
+        event.event_date = request.POST.get('event_date')
+        event.location = request.POST.get('location')
+        event.save()
 
-    return render(request, "edit_event.html", {"form": form})
+        return redirect('/events/')
+
+    return render(request, 'events/edit_event.html', {'event': event})
 
 
-@login_required(login_url="/login/")
+# 📌 DELETE EVENT
 def delete_event(request, id):
-    if request.user.profile.role not in ["admin", "staff"]:
-        return redirect("/dashboard/")
-
     event = Event.objects.get(id=id)
     event.delete()
-    return redirect("/events/")
+    return redirect('/events/')
 
+
+# 📌 DONATION LIST (if you already started this)
+def donation_list(request):
+    return render(request, 'events/donations.html')
+
+
+# 📌 DONATE PAGE
 def donate(request):
-    if request.method == "POST":
-        form = DonationForm(request.POST) # type: ignore
-        if form.is_valid():
-            form.save()
-            return redirect("/donations/")
-    else:
-        form = DonationForm() # type: ignore
+    return render(request, 'events/donate.html')
 
-    return render(request, "donate.html", {"form": form})
+
+# 📌 OPTIONAL (if you used this earlier)
+def create_event(request):
+    return redirect('/events/')
