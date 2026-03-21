@@ -1,88 +1,103 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>NGO Dashboard</title>
+    <title>NGO CMS</title>
 
     <style>
         body {
-    margin: 0;
-    font-family: Arial;
-    background: linear-gradient(to right, #e3f2fd, #ffffff);
-}
-        .menu {
-            background: #2c3e50;
-            padding: 12px;
-            border-radius: 6px;
+            margin: 0;
+            font-family: Arial;
+            background: linear-gradient(to right, #e3f2fd, #ffffff);
         }
 
-        .menu a {
+        .navbar {
+            background-color: #333;
+            padding: 15px;
+        }
+
+        .navbar a {
             color: white;
             margin-right: 15px;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .menu a:hover {
-            text-decoration: underline;
+        .navbar a:hover {
+            color: yellow;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
         }
 
         .card {
             background: white;
             padding: 20px;
-            margin-top: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+            margin: 20px 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
         }
-        .card {
-    background: white;
-    padding: 20px;
-    margin: 20px 0;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    transition: 0.3s;
-}
 
-.card:hover {
-    transform: translateY(-5px);
-}
+        .card:hover {
+            transform: translateY(-5px);
+        }
 
-.actions a {
-    margin-right: 10px;
-    text-decoration: none;
-    font-weight: bold;
-    color: #007BFF;
-}
+        h2 {
+            text-align: center;
+            color: #333;
+        }
 
-.actions a:hover {
-    color: #ff6600;
-}
+        h3 {
+            color: #333;
+        }
+
+        p {
+            color: #555;
+            margin: 5px 0;
+        }
+
+        .btn {
+            background:#007BFF;
+            color:white;
+            padding:10px 15px;
+            border-radius:8px;
+            text-decoration:none;
+            font-weight:bold;
+        }
+
+        .edit-btn {
+            background:#28a745;
+            color:white;
+            padding:6px 10px;
+            border-radius:6px;
+            text-decoration:none;
+        }
+
+        .delete-btn {
+            background:#dc3545;
+            color:white;
+            padding:6px 10px;
+            border-radius:6px;
+            text-decoration:none;
+        }
     </style>
 </head>
 
 <body>
 
-{% if request.user.is_authenticated %}
-<div class="menu">
+<div class="navbar">
     <a href="/dashboard/">Dashboard</a>
     <a href="/events/">Events</a>
-    <a href="/donations/">Donations</a>
-    <a href="/donate/">Donate</a>
     <a href="/logout/">Logout</a>
 </div>
-{% endif %}
 
-
-<div class="card">
+<div class="container">
     {% block content %}
     {% endblock %}
 </div>
 
 </body>
 </html>
-
-<style>
-body {
-    background-color: #f4f4f4;
-    font-family: Arial;
-}
-</style>

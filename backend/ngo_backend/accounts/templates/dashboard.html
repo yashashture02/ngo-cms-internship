@@ -1,19 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Dashboard</title>
-</head>
-<body>
-    <h2>Welcome to Dashboard</h2>
-
-    <p>Logged in as: {{ request.user.username }}</p>
-
-    <a href="/logout/">Logout</a>
-</body>
-</html>
 {% extends "base.html" %}
 
 {% block content %}
+
 <h2>Admin Dashboard</h2>
+
 <p>Welcome {{ request.user.username }}</p>
+<p>Role: {{ role }}</p>
+
+<div class="card">
+    <h3>Total Events</h3>
+    <p>{{ total_events }}</p>
+</div>
+
+<div class="card">
+    <h3>Total Donations</h3>
+    <p>{{ total_donations }}</p>
+</div>
+
+<div class="card">
+    <h3>Total Amount</h3>
+    <p>₹ {{ total_amount }}</p>
+</div>
+
+<br>
+
+<a href="/events/add/" class="btn">+ Create Event</a>
+
 {% endblock %}
