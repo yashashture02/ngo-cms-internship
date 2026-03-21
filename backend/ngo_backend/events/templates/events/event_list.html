@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h2>Events List</h2>
+<h2>✨ NGO Events Dashboard</h2>
 
 <a href="/events/add/" class="btn">+ Add Event</a>
 
@@ -23,11 +23,13 @@
 
     <br>
 
-    <a href="/events/edit-event/{{ event.id }}" class="edit-btn">✏️ Edit</a>
-    <a href="/events/delete-event/{{ event.id }}" class="delete-btn">🗑️ Delete</a>
+    <a href="/events/edit-event/{{ event.id }}" class="edit-btn">Edit</a>
+    <a href="/events/delete-event/{{ event.id }}" class="delete-btn">Delete</a>
 
 </div>
 {% endfor %}
+
+<br>
 
 <div>
     {% if events.has_previous %}

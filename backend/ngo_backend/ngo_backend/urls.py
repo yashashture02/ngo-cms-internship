@@ -4,6 +4,6 @@ from django.urls import path, include # type: ignore
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('', include('accounts.urls')),        # login, logout
-    path('events/', include('events.urls')),   # ✅ FIXED (VERY IMPORTANT)
+    path('', include('accounts.urls')),   # login + dashboard
+    path('events/', include('events.urls')),
 ]
