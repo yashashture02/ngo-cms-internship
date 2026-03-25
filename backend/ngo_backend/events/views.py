@@ -55,3 +55,19 @@ def donate(request):
         return render(request, 'events/donate.html', {'success': True})
 
     return render(request, 'events/donate.html')
+
+def home(request):
+    from .models import Event, Donation
+
+    total_events = Event.objects.count()
+    total_donations = Donation.objects.count()
+
+    total_amount = 0
+    for d in Donation.objects.all():
+        total_amount += d.amount
+
+    return render(request, 'events/home.html', {
+        'total_events': total_events,
+        'total_donations': total_donations,
+        'total_amount': total_amount
+    })
