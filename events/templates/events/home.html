@@ -1,58 +1,21 @@
+{% extends 'base.html' %}
 
+{% block content %}
 
-<!-- HERO -->
-<div class="hero">
-    <h1>Making a Difference Together</h1>
-    <p>Empowering lives across India 🇮🇳</p>
+<h1 class="text-center mb-4">Upcoming Events</h1>
 
-    <a href="/donate/" class="btn">Donate Now</a>
-</div>
-
-<!-- IMAGE -->
-<div class="card">
-    <img src="https://images.unsplash.com/photo-1643024671989-b030a7c67a28?q=80&w=1170&auto=format&fit=crop">
-</div>
-
-<!-- MISSION -->
-<div class="card">
-    <h3>🌍 Our Mission</h3>
-    <p>
-        We support underprivileged communities through education,
-        healthcare, and social initiatives.
-    </p>
-</div>
-
-<!-- STATS -->
-<div class="card stats">
-    <div>
-        <h2>{{ total_events }}</h2>
-        <p>Events</p>
+<div class="row">
+    {% for event in events %}
+    <div class="col-md-4">
+        <div class="card mb-4 shadow">
+            <div class="card-body">
+                <h5>{{ event.title }}</h5>
+                <p>{{ event.description }}</p>
+                <p><strong>Date:</strong> {{ event.date }}</p>
+            </div>
+        </div>
     </div>
-
-    <div>
-        <h2>{{ total_donations }}</h2>
-        <p>Donations</p>
-    </div>
-
-    <div>
-        <h2>₹ {{ total_amount }}</h2>
-        <p>Raised</p>
-    </div>
+    {% endfor %}
 </div>
 
-<!-- WORK -->
-<div class="card">
-    <h3>📸 Our Work</h3>
-
-    <img src="https://plus.unsplash.com/premium_photo-1690956889117-01f712c41349?q=80&w=1171&auto=format&fit=crop">
-    <br><br>
-    <img src="https://images.unsplash.com/photo-1574758324765-a29c77fb9c91?q=80&w=1170&auto=format&fit=crop">
-</div>
-
-<!-- ✅ CONTACT SECTION BACK -->
-<div class="card">
-    <h3>📞 Contact Us</h3>
-    <p>Email: helpinghands@gmail.com</p>
-    <p>Phone: +91 9876543210</p>
-    <p>Location: India 🇮🇳</p>
-</div>
+{% endblock %}
