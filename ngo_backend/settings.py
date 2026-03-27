@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]+ MIDDLEWARE[1:] # type: ignore
+]
 
 ROOT_URLCONF = 'ngo_backend.urls'
 
