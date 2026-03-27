@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="text-center mb-5">All Events</h2>
+
+<div class="row">
+
+    {% for event in events %}
+
+    <div class="col-md-4 d-flex">
+        <div class="card mb-4 hover-box w-100">
+
+            {% if event.image %}
+              <img src="{{ event.image.url }}" class="card-img-top" style="height:200px; object-fit:cover;">
+            {% elif "food" in event.title|lower %}
+              <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc" class="card-img-top">
+            {% elif "education" in event.title|lower %}
+              <img src="https://images.unsplash.com/photo-1588072432836-e10032774350" class="card-img-top">
+            {% elif "supply" in event.title|lower %}
+              <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e" class="card-img-top">
+            {% else %}
+            <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d" class="card-img-top">
+            {% endif %}
+
+            <div class="card-body d-flex flex-column">
+                <h5>{{ event.title }}</h5>
+                <p>{{ event.description }}</p>
+                <p><strong>Date:</strong> {{ event.date }}</p>
+
+                <!-- 🔥 BUTTONS -->
+                <div class="mt-auto d-grid gap-2">
+                <a href="/event/{{ event.id }}/" class="btn btn-primary">View Details</a>
+                <a href="/events/" class="btn btn-secondary">Back</a>
+                <a href="/donate/" class="btn btn-success">Donate</a>
+            </div>
+        </div>
+    </div>
+
+    {% empty %}
+        <p class="text-center">No events available yet</p>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

@@ -1,6 +1,9 @@
+import django.shortcuts # type: ignore
 from django.shortcuts import render, redirect # type: ignore
 from .models import Event, Donation
-
+from django.contrib.auth.models import User # type: ignore
+from django.contrib.auth.decorators import login_required # type: ignore
+from django.contrib.auth import authenticate, login, logout # type: ignore
 
 def home(request):
     total_events = Event.objects.count()
@@ -8,42 +11,37 @@ def home(request):
 
     total_amount = sum(d.amount for d in Donation.objects.all())
 
-    return render(request, 'events/home.html', {
+    context = {
         'total_events': total_events,
         'total_donations': total_donations,
-        'total_amount': total_amount
-    })
+        'total_amount': total_amount,
+    }
+
+    return django.shortcuts.render(request, 'events/home.html', context)
 
 
-def event_list(request):
-    query = request.GET.get('q')
-
-    if query:
-        events = Event.objects.filter(title__icontains=query)
-    else:
-        events = Event.objects.all()
-
-    return render(request, 'events/event_list.html', {'events': events})
+def events_page(request):
+    events = Event.objects.all()
+    return django.shortcuts.render(request, 'events/events.html', {'events': events})
 
 
+@login_required
+@login_required
 def add_event(request):
     if request.method == "POST":
-        title = request.POST.get('title')
-        description = request.POST.get('description')
-        date = request.POST.get('event_date')
-        location = request.POST.get('location')
+        title = request.POST['title']
+        description = request.POST['description']
+        date = request.POST['date']
+        image = request.FILES.get('image')
 
-        # 🔥 FIX: check if title exists
-        if title:
-            Event.objects.create(
-                title=title,
-                description=description,
-                event_date=date,
-                location=location
-            )
-            return redirect('/events/')
-        else:
-            return render(request, 'events/add_event.html', {'error': 'Title is required'})
+        Event.objects.create(
+            title=title,
+            description=description,
+            date=date,
+            image=image
+        )
+
+        return redirect('/events/')
 
     return render(request, 'events/add_event.html')
 
@@ -57,29 +55,67 @@ def edit_event(request, id):
         event.event_date = request.POST.get('event_date')
         event.location = request.POST.get('location')
         event.save()
-        return redirect('/events/')
+        return redirect('/events/') # type: ignore
 
-    return render(request, 'events/edit_event.html', {'event': event})
+    return django.shortcuts.render(request, 'events/edit_event.html', {'event': event})
 
 
 def delete_event(request, id):
     Event.objects.get(id=id).delete()
-    return redirect('/events/')
+    return redirect('/events/') # type: ignore
+
+@login_required
+def events_page(request):
+    events = Event.objects.all()
+    return render(request, 'events/events.html', {'events': events})
 
 
 def donate(request):
     if request.method == "POST":
-        name = request.POST.get("name")
-        amount = request.POST.get("amount")
+        name = request.POST['name']
+        amount = request.POST['amount']
+        message = request.POST['message']
 
-        if name and amount:
-            Donation.objects.create(
-                name=name,
-                amount=int(amount),
-                message=request.POST.get("message")
-            )
-            return redirect('/events/')
+        Donation.objects.create(name=name, amount=amount, message=message)
+        return redirect('/') # type: ignore
+
+    return django.shortcuts.render(request, 'events/donate.html')
+
+def register_user(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+
+        if User.objects.filter(username=username).exists(): # type: ignore
+            return render(request, 'events/register.html', {'error': 'User already exists'}) # type: ignore
+
+        user = User.objects.create_user(username=username, password=password) # type: ignore
+        login(request, user) # type: ignore
+        return redirect('/') # type: ignore
+
+    return render(request, 'events/register.html') # type: ignore
+
+
+def login_user(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(request, username=username, password=password) # type: ignore
+
+        if user is not None:
+            login(request, user) # type: ignore
+            return redirect('/') # type: ignore
         else:
-            return render(request, 'events/donate.html', {'error': 'All fields required'})
+            return render(request, 'events/login.html', {'error': 'Invalid credentials'}) # type: ignore
 
-    return render(request, 'events/donate.html')
+    return render(request, 'events/login.html') # type: ignore
+
+
+def logout_user(request):
+    logout(request) # type: ignore
+    return redirect('/') # type: ignore
+
+def event_detail(request, id):
+    event = Event.objects.get(id=id)
+    return render(request, 'events/event_detail.html', {'event': event})

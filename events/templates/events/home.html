@@ -2,20 +2,77 @@
 
 {% block content %}
 
-<h1 class="text-center mb-4">Upcoming Events</h1>
+<!-- HERO -->
+<div class="hero mb-5 text-center">
+    <h1>Empowering Lives 🌍</h1>
+    <p>We create impact through education, healthcare and support</p>
+</div>
 
-<div class="row">
-    {% for event in events %}
+<!-- SERVICES -->
+<div class="row text-center mb-5">
+
     <div class="col-md-4">
-        <div class="card mb-4 shadow">
-            <div class="card-body">
-                <h5>{{ event.title }}</h5>
-                <p>{{ event.description }}</p>
-                <p><strong>Date:</strong> {{ event.date }}</p>
-            </div>
+        <div class="section-box hover-box">
+            <img src="https://images.unsplash.com/photo-1574758324765-a29c77fb9c91?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="img-fluid rounded">
+            <h4 class="mt-3">Education</h4>
+            <p>Helping children build a brighter future.</p>
         </div>
     </div>
-    {% endfor %}
+
+    <div class="col-md-4">
+        <div class="section-box hover-box">
+            <img src="https://media.istockphoto.com/id/1614137090/photo/indian-doctor-prescribing-medicine-to-the-patient-at-village-woman-wearing-sari-with-her.jpg?s=612x612&w=0&k=20&c=JemNWMyu8imzfE65hJCs_Om_S3geJygOat1gErFYNu4=" class="img-fluid rounded">
+            <h4 class="mt-3">Healthcare</h4>
+            <p>Providing medical support to communities.</p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="section-box hover-box">
+            <img src="https://media.istockphoto.com/id/1387733949/photo/close-up-on-canned-food-on-the-table-ready-for-donation-at-the-charity-foundation-with.jpg?s=612x612&w=0&k=20&c=o-BrACHBoQQhYKrc92khp4g6QJeMR4l78agmOc5y5fg=" class="img-fluid rounded">
+            <h4 class="mt-3">Supplies</h4>
+            <p>Providing essential supplies to those in need.</p>
+        </div>
+    </div>
+
+</div>
+
+<!-- STATS -->
+<div class="row text-center mb-5">
+    <div class="col-md-4">
+        <div class="section-box hover-box">
+            <h2>{{ total_events }}</h2>
+            <p>Total Events</p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="section-box hover-box">
+            <h2>{{ total_donations }}</h2>
+            <p>Total Contributions</p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="section-box hover-box">
+            <h2>₹{{ total_amount }}</h2>
+            <p>Total Raised</p>
+        </div>
+    </div>
+</div>
+
+<!-- ABOUT -->
+<div class="section-box mb-4">
+    <h3>About Us</h3>
+    <p>We are an NGO dedicated to improving lives through education, healthcare and essential supplies.</p>
+</div>
+
+<!-- CONTACT -->
+<div class="section-box">
+    <h3>Contact Us</h3>
+    <p>Email: ngo@gmail.com</p>
+    <p>Phone: +91 9876543210</p>
+    <p>Location: Pune, India</p>
 </div>
 
 {% endblock %}

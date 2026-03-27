@@ -1,4 +1,5 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+
 {% block content %}
 
 <div style="max-width:600px; margin:50px auto;">
@@ -7,22 +8,17 @@
 
     <div class="card">
 
-        <form method="POST">
-            {% csrf_token %}
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
 
-            <input type="text" name="title" placeholder="Event Title" required>
+    <input class="form-control mb-3" name="title" placeholder="Event Title">
+    <textarea class="form-control mb-3" name="description" placeholder="Description"></textarea>
+    <input type="date" class="form-control mb-3" name="date">
 
-            <textarea name="description" placeholder="Event Description" required></textarea>
+    <input type="file" class="form-control mb-3" name="image">
 
-            <input type="date" name="event_date" required>
-
-            <input type="text" name="location" placeholder="Location" required>
-
-            <div style="text-align:center; margin-top:15px;">
-                <button type="submit" class="btn">Add Event</button>
-            </div>
-
-        </form>
+    <button class="btn btn-custom w-100">Submit</button>
+</form>
 
     </div>
 

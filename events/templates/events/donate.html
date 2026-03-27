@@ -7,11 +7,11 @@
 <form method="POST">
     {% csrf_token %}
 
-    <input type="text" name="name" placeholder="Your Name" required>
-    <input type="number" name="amount" placeholder="Amount" required>
-    <textarea name="message" placeholder="Message"></textarea>
+    <input class="form-control mb-3" name="name" placeholder="Your Name">
+    <input class="form-control mb-3" name="amount" placeholder="Amount">
+    <input class="form-control mb-3" name="message" placeholder="Message">
 
-    <button type="submit" class="btn">Donate</button>
+    <a href="/donate/" class="btn btn-success w-100 mt-2">Donate</a>
 </form>
 </div>
 
