@@ -2,41 +2,44 @@
 
 {% block content %}
 
-<div class="container mt-4">
-    <h2 class="text-center mb-4">All Events</h2>
+<h2 class="text-center mb-4">All Events</h2>
 
-    <div class="row">
+<!-- 🔍 SEARCH BAR -->
+<form method="GET" class="mb-4 text-center">
+    <input type="text" name="q" placeholder="Search events..." class="form-control w-50 d-inline">
+    <button class="btn btn-primary">Search</button>
+</form>
 
-        {% for event in events %}
+<div class="row">
 
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm h-100">
+    {% for event in events %}
 
-                {% if event.image %}
-                    <img src="{{ event.image.url }}" class="card-img-top" style="height:200px; object-fit:cover;">
-                {% else %}
-                    <img src="https://via.placeholder.com/300x200" class="card-img-top">
-                {% endif %}
+    <div class="col-md-4 mb-4">
+        <div class="card hover-box h-100 text-dark">
 
-                <div class="card-body d-flex flex-column">
-                    <h5>{{ event.title }}</h5>
-                    <p>{{ event.description }}</p>
-                    <p><strong>Date:</strong> {{ event.date }}</p>
+            {% if event.image %}
+                <img src="{{ event.image.url }}" class="card-img-top" style="height:200px; object-fit:cover;">
+            {% endif %}
 
-                    <div class="mt-auto">
-                        <a href="/event/{{ event.id }}/" class="btn btn-primary w-100 mb-2">View</a>
-                        <a href="/donate/" class="btn btn-success w-100">Donate</a>
-                    </div>
+            <div class="card-body d-flex flex-column">
+                <h5>{{ event.title }}</h5>
+                <p>{{ event.description }}</p>
+                <p><strong>Date:</strong> {{ event.date }}</p>
+
+                <div class="mt-auto d-grid gap-2">
+                    <a href="/event/{{ event.id }}/" class="btn btn-primary">View</a>
+                    <a href="/edit-event/{{ event.id }}/" class="btn btn-warning">Edit</a>
+                    <a href="/donate/" class="btn btn-success">Donate</a>
                 </div>
-
             </div>
+
         </div>
-
-        {% empty %}
-            <p class="text-center">No events available</p>
-        {% endfor %}
-
     </div>
+
+    {% empty %}
+        <p>No events found</p>
+    {% endfor %}
+
 </div>
 
 {% endblock %}
