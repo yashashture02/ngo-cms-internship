@@ -1,12 +1,14 @@
-from django.shortcuts import render, redirect # type: ignore
+from django.shortcuts import render, redirect
 from .models import Event, Donation
-from django.contrib.auth.decorators import login_required # type: ignore
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 
 
 def home(request):
     total_events = Event.objects.count()
     total_donations = Donation.objects.count()
-    total_amount = sum(d.amount for d in Donation.objects.all())
+    total_amount = sum([d.amount for d in Donation.objects.all()])
 
     return render(request, 'events/home.html', {
         'total_events': total_events,
@@ -15,7 +17,6 @@ def home(request):
     })
 
 
-@login_required
 def events_page(request):
     query = request.GET.get('q')
 
@@ -53,22 +54,51 @@ def edit_event(request, id):
             event.image = request.FILES.get('image')
 
         event.save()
-        return redirect('/events/')
+        return redirect(f'/event/{id}/')
 
     return render(request, 'events/edit_event.html', {'event': event})
 
-@login_required
+
 def donate(request):
     if request.method == "POST":
         Donation.objects.create(
             name=request.POST['name'],
-            amount=request.POST['amount'],
+            amount=int(request.POST['amount']),  # 🔥 FIX
             message=request.POST['message']
         )
-        return redirect('/')
+        return redirect('/')  # 🔥 goes to home → updates count
+
     return render(request, 'events/donate.html')
 
 
 def event_detail(request, id):
     event = Event.objects.get(id=id)
     return render(request, 'events/event_detail.html', {'event': event})
+
+
+# AUTH (keep for stability)
+def login_user(request):
+    if request.method == "POST":
+        user = authenticate(
+            username=request.POST['username'],
+            password=request.POST['password']
+        )
+        if user:
+            login(request, user)
+            return redirect('/')
+    return render(request, 'events/login.html')
+
+
+def register_user(request):
+    if request.method == "POST":
+        User.objects.create_user(
+            username=request.POST['username'],
+            password=request.POST['password']
+        )
+        return redirect('/login/')
+    return render(request, 'events/register.html')
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('/')
