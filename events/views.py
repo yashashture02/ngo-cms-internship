@@ -42,6 +42,7 @@ def add_event(request):
 
 
 @login_required
+@login_required
 def edit_event(request, id):
     event = Event.objects.get(id=id)
 
@@ -102,3 +103,9 @@ def register_user(request):
 def logout_user(request):
     logout(request)
     return redirect('/')
+
+@login_required
+def delete_event(request, id):
+    event = Event.objects.get(id=id)
+    event.delete()
+    return redirect('/events/')

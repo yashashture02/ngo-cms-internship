@@ -2,19 +2,26 @@
 
 {% block content %}
 
-<h2>Edit Event</h2>
+<div class="container">
 
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
+    <h2>Edit Event</h2>
 
-    <input class="form-control mb-3" name="title" value="{{ event.title }}">
-    <textarea class="form-control mb-3" name="description">{{ event.description }}</textarea>
-    <input type="date" class="form-control mb-3" name="date" value="{{ event.date }}">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
 
-    <input type="file" class="form-control mb-3" name="image">
+        <input class="form-control mb-3" name="title" value="{{ event.title }}">
 
-    <button class="btn btn-primary w-100">Update</button>
+        <textarea class="form-control mb-3" name="description">{{ event.description }}</textarea>
 
-</form>
+        <input type="date" class="form-control mb-3" name="date" value="{{ event.date }}">
+
+        <!-- 🔥 IMAGE UPLOAD -->
+        <input type="file" class="form-control mb-3" name="image">
+
+        <button class="btn btn-warning w-100">Update Event</button>
+
+    </form>
+
+</div>
 
 {% endblock %}
