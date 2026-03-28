@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect # type: ignore
 from .models import Event, Donation
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required # type: ignore
 
 
 def home(request):
@@ -56,7 +56,6 @@ def edit_event(request, id):
         return redirect('/events/')
 
     return render(request, 'events/edit_event.html', {'event': event})
-
 
 @login_required
 def donate(request):
